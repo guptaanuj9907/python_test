@@ -25,10 +25,9 @@ def get_list_of_file_changed():
     token = os.getenv('GIT_TOKEN')
     header = {'Authorization': 'token ' + token}
     url = "https://api.github.com/repos/guptaanuj9907/python_test/pulls/" + str(get_pr_number()+"/files")
-    r = requests.get(url=url, headers=header)
-    print(r.json())
-    print("token"+" "+str(token))
-    print("url"+" "+url)
+    response = requests.get(url=url, headers=header)
+    file_list = [file['filename'] for file in response.json()]
+    print(file_list)
 
 def close_pr():
     token = os.getenv('GIT_TOKEN')
