@@ -33,7 +33,7 @@ def get_directory():
     dir=[]
     with open(".github/directory_name") as file:
         for line in file:
-            dir.append(line)
+            dir.append(line.strip())
     return dir
         
 def compare_file_changed_and_directory(file_changed,directory):
@@ -48,7 +48,7 @@ def get_block_directory_list():
     block_dir=[]
     with open(".github/block_dir_list") as file:
         for line in file:
-            block_dir.append(line)
+            block_dir.append(line.strip())
     return block_dir
 
 def compare_file_changed_and_block_directory(file_changed,block_directory):
