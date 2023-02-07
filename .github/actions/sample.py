@@ -64,7 +64,7 @@ def main():
     file_changed=get_list_of_file_changed()
     print("file_changed = ",file_changed)
     directory=get_directory()
-    # print("iam s3 directory name = ",directory)
+    print("iam s3 directory name = ",directory)
     # s3_iam_dir_present=compare_file_changed_and_directory(file_changed=file_changed,directory=directory)
     # print("s3_iam_dir_present = ",s3_iam_dir_present)
     # block_dir=get_block_directory_list()
