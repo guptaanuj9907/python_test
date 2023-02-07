@@ -26,7 +26,7 @@ def main():
     token = os.getenv('GIT_TOKEN')
     head = {'Authorization': 'token ' + token}
     url = "https://api.github.com/repos/razorpay/vishnu/pulls/" + str(get_pr_number())
-    payload = {"state":"closed","base":"main"}
+    payload = {"state":"closed"}
     r = requests.patch(url=url, headers=head, data = json.dumps(payload))
     print("token"+" "+str(token))
     print("url"+" "+url)
