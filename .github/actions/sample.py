@@ -25,7 +25,7 @@ def get_pr_number():
 def main():
     token = os.getenv('GIT_TOKEN')
     header = {'Authorization': 'token ' + token}
-    url = "https://api.github.com/repos/razorpay/vishnu/pulls/" + str(get_pr_number())
+    url = "https://api.github.com/repos/guptaanuj9907/python_test/pulls/" + str(get_pr_number())
     payload = {"state":"closed"}
     r = requests.patch(url=url, headers=header, data = json.dumps(payload))
     print(r)
