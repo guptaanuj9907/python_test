@@ -21,16 +21,30 @@ def get_pr_number():
     print(arr)
     return arr[2]
 
+def get_list_of_file_changed():
+    token = os.getenv('GIT_TOKEN')
+    header = {'Authorization': 'token ' + token}
+    url = "https://api.github.com/repos/guptaanuj9907/python_test/pulls/" + str(get_pr_number()+"/files")
+    r = requests.get(url=url, headers=header)
+    print(r)
+    print("token"+" "+str(token))
+    print("url"+" "+url)
 
-def main():
+def close_pr():
     token = os.getenv('GIT_TOKEN')
     header = {'Authorization': 'token ' + token}
     url = "https://api.github.com/repos/guptaanuj9907/python_test/pulls/" + str(get_pr_number())
     payload = {"state":"closed"}
     r = requests.patch(url=url, headers=header, data = json.dumps(payload))
-    print(r)
-    print("token"+" "+str(token))
-    print("url"+" "+url)
+
+def main():
+    get_list_of_file_changed()
+    close_pr()
+
+
+
+    
+   
 
 
 
