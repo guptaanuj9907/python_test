@@ -26,7 +26,7 @@ def get_list_of_file_changed():
     header = {'Authorization': 'token ' + token}
     url = "https://api.github.com/repos/guptaanuj9907/python_test/pulls/" + str(get_pr_number()+"/files")
     r = requests.get(url=url, headers=header)
-    print(r)
+    print(r.json())
     print("token"+" "+str(token))
     print("url"+" "+url)
 
