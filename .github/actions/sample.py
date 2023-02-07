@@ -75,7 +75,7 @@ def main():
             file_changed=file_changed,block_directory=block_dir):
             close_pr()
         else:
-            print("No Drift !!!!!!!!!!!!!")
+            print("No Drift !!!!!!!!!!!!!!")
             print("Trigger the cron job again")
     
 
