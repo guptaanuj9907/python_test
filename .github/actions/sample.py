@@ -108,7 +108,7 @@ def main():
     if compare_file_changed_and_block_directory(file_changed=file_changed,block_directory=block_dir):
         print("File change file path is present in BLOCK DIRECTORY")
         print("Closing the PR")
-        close_pr()
+        # close_pr()
     else:
         print("File change file path is NOT present in BLOCK DIRECTORY")
         print("No Drift !!!!!!!!!!!!!!...Trigger the cron job again when some ran atlantis paln")
