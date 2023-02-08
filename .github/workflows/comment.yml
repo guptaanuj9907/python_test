@@ -1,0 +1,21 @@
+name: PR Comment Trigger
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  comment_job:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check if PR comment
+      if: github.event.issue.pull_request && startsWith(github.event.comment.body, 'atlantis plan')
+      run: echo "Atlantis plan comment was made on a Pull Request!"
+
+    - name: Perform some action
+      run: |
+          pip3 install requests
+          python3 ./.github/actions/sample.py
+
+    
