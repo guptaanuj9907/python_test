@@ -21,7 +21,6 @@ jobs:
       - name: Execute Python Script
         env: 
           GIT_TOKEN: ${{ github.token }}
-         
         run: |
           pip3 install requests
           python3 ./.github/actions/sample.py
