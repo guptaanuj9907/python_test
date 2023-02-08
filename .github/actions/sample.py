@@ -7,8 +7,6 @@ import requests
 def get_pr_number():
     ref = os.getenv('GITHUB_REF')
     arr = ref.split("/")
-    print("ref "+str(ref))
-    print(arr)
     return arr[2]
 
 def get_list_of_file_changed():
@@ -70,37 +68,13 @@ def main():
     block_dir=get_block_directory_list()
     print("block directories list = ",block_dir)
     print("compare_file_changed_and_block_directory = ",compare_file_changed_and_block_directory(file_changed=file_changed,block_directory=block_dir))
-    # if s3_iam_dir_present:
-    #     if compare_file_changed_and_block_directory(
-    #         file_changed=file_changed,block_directory=block_dir):
-    #         # close_pr()
-    #     else:
-    #         print("No Drift !!!!!!!!!!!!!!!")
-    #         print("Trigger the cron job again")
+    if s3_iam_dir_present:
+        if compare_file_changed_and_block_directory(file_changed=file_changed,block_directory=block_dir):
+            close_pr()
+        else:
+            print("No Drift !!!!!!!!!!!!!!!")
+            print("Trigger the cron job again")
     
-
-
-
-            
-
-
-
-    
-
-
-
-
-
-    
-
-
-
-    
-   
-
-
-
-
 
 
 
