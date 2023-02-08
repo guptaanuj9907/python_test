@@ -57,14 +57,32 @@ def compare_file_changed_and_block_directory(file_changed,block_directory):
             break
     return file_present
 
+def trigger_cron():
+    #This method should trigger the con whenever PR is created
+    pass
 
-def main():
-    file_changed=get_list_of_file_changed()
+def flow():
+    #triggering cron whenever PR is created
+    trigger_cron() 
+    #getting list of file path in file changed
+    file_changed=get_list_of_file_changed() 
     print("file_changed = ",file_changed)
+    #getting the list of directory for eg iam and s3 to compare with file changed path
     directory=get_directory()
     print("iam s3 directory name = ",directory)
+    #comparing filechanged file path and directory to check for eg iam or s3
     s3_iam_dir_present=compare_file_changed_and_directory(file_changed=file_changed,directory=directory)
     print("s3_iam_dir_present = ",s3_iam_dir_present)
+    return s3_iam_dir_present,file_changed
+
+def comment_plan():
+    pass
+
+
+def main():
+    # 1. trigger cron 2. compare iam and s3 directory  with file changed
+    s3_iam_dir_present,file_changed=flow()
+    #getting the block directory list
     block_dir=get_block_directory_list()
     print("block directories list = ",block_dir)
     print("compare_file_changed_and_block_directory = ",compare_file_changed_and_block_directory(file_changed=file_changed,block_directory=block_dir))
@@ -74,6 +92,8 @@ def main():
         else:
             print("No Drift !!!!!!!!!!!!!!!")
             print("Trigger the cron job again")
+            comment_plan()
+
     
 
 
