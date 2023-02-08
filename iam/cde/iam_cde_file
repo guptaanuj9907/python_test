@@ -1,1 +1,13 @@
 amnfms
+Getting list of file paths of file changed
+file_changed =  ['.github/actions', '.github/workflows', 'iam/cde']
+Getting the list of directory for eg IAM and S3
+Directory name =  ['iam', 's3']
+Comparing file path of file changed with directory
+IAM or S3 directory present in file changed path =  False
+Getting the list of block directories
+block directories list =  ['iam/cde', 'iam/prod', 's3', '']
+Checking IAM and S3 directory present in file changed file path
+compare_file_changed_and_block_directory =  True
+IAM and S3 directory is NOT present in file changed file path
+No need to do anything !!!!!!!!
