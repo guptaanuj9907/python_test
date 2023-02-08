@@ -7,8 +7,6 @@ import requests
 def get_pr_number():
     ref = os.getenv('GITHUB_REF')
     arr = ref.split("/")
-    print("ref "+str(ref))
-    print(arr)
     return arr[2]
 
 def get_list_of_file_changed():
@@ -77,29 +75,6 @@ def main():
             print("No Drift !!!!!!!!!!!!!!!")
             print("Trigger the cron job again")
     
-
-
-
-            
-
-
-
-    
-
-
-
-
-
-    
-
-
-
-    
-   
-
-
-
-
 
 
 
