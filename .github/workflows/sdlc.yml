@@ -27,7 +27,7 @@ jobs:
         uses: jitterbit/get-changed-files@v1
       - run: |
           pip3 install requests
-          python3 ${{ github.workspace }}/.github/actions/sample.py ${{ steps.files.outputs.all }}
+          python ${{ github.workspace }}/.github/actions/sample.py ${{ steps.files.outputs.all }}
         
         # run: |
         #   pip3 install requests
