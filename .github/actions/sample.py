@@ -63,16 +63,21 @@ def trigger_cron():
 
 def flow():
     #triggering cron whenever PR is created
+    print("PR is created..Triggering cron")
     trigger_cron() 
+    print("Triggered Cron")
     #getting list of file path in file changed
+    print("Getting list of file paths of file changed")
     file_changed=get_list_of_file_changed() 
     print("file_changed = ",file_changed)
     #getting the list of directory for eg iam and s3 to compare with file changed path
+    print("Getting the list of directory for eg IAM and S3")
     directory=get_directory()
-    print("iam s3 directory name = ",directory)
+    print("Directory name = ",directory)
     #comparing filechanged file path and directory to check for eg iam or s3
+    print("Comparing file path of file changed with directory")
     s3_iam_dir_present=compare_file_changed_and_directory(file_changed=file_changed,directory=directory)
-    print("s3_iam_dir_present = ",s3_iam_dir_present)
+    print("IAM or S3 directory present in file changed path = ",s3_iam_dir_present)
     return s3_iam_dir_present,file_changed
 
 def comment_plan():
@@ -83,16 +88,25 @@ def main():
     # 1. trigger cron 2. compare iam and s3 directory  with file changed
     s3_iam_dir_present,file_changed=flow()
     #getting the block directory list
+    print("Getting the list of block directories")
     block_dir=get_block_directory_list()
     print("block directories list = ",block_dir)
+    print("Checking IAM and S3 directory present in file changed file path")
     print("compare_file_changed_and_block_directory = ",compare_file_changed_and_block_directory(file_changed=file_changed,block_directory=block_dir))
     if s3_iam_dir_present:
+        print("IAM and S3 directory is present in file changed file path")
+        print("Checking block directory with file change file path")
         if compare_file_changed_and_block_directory(file_changed=file_changed,block_directory=block_dir):
+            print("File change file path is present in BLOCK DIRECTORY")
+            print("Closing the PR")
             close_pr()
         else:
-            print("No Drift !!!!!!!!!!!!!!!")
-            print("Trigger the cron job again")
+            print("File change file path is NOT present in BLOCK DIRECTORY")
+            print("No Drift !!!!!!!!!!!!!!!...Trigger the cron job again when some ran atlantis paln")
             comment_plan()
+    else:
+        print("IAM and S3 directory is NOT present in file changed file path")
+        print("No need to do anything !!!!!!!!")
 
     
 
