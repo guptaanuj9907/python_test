@@ -111,7 +111,7 @@ def main():
         close_pr()
     else:
         print("File change file path is NOT present in BLOCK DIRECTORY")
-        print("No Drift !!!!!!!!!!!!!!!...Trigger the cron job again when some ran atlantis paln")
+        print("No Drift !!!!!!!!!!!!!!...Trigger the cron job again when some ran atlantis paln")
         comment_plan()
     
 
