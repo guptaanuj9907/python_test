@@ -12,7 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Check comment body
-      id: check
       run: |
         echo "Checking comment body"
         echo github.event.comment.body: ${{ github.event.comment.body }}
