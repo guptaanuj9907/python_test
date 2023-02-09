@@ -10,7 +10,12 @@ on:
 jobs:
   run_script:
     runs-on: ubuntu-latest
+    permissions: write-all
     steps:
+    - uses: actions/checkout@v2
+      with:
+        token: ${{ github.token }}
+        
     - name: Check comment body
       env: 
           GIT_TOKEN: ${{ github.token }}
