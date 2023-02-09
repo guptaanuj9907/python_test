@@ -23,6 +23,7 @@ jobs:
     - name: Execute Python Script
       env: 
         GIT_TOKEN: ${{ github.token }}
+        GITHUB_EVENT_PULL_REQUEST_NUMBER: ${{ github.event.pull_request.number }}
       run: |
         echo "Checking comment body"
         echo github.event.comment.body: ${{ github.event.comment.body }}
