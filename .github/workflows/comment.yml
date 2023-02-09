@@ -1,17 +1,16 @@
-name: pull request comment
+name: Comment Workflow
+
 on:
-  issue_comment:                                     
-    types: [created, edited, deleted]
+  issue_comment:
+    types: [created]
+
 jobs:
- job01:
-   if: contains(github.event.comment.html_url, '/pull/')    # check if the comments come from pull request, exclude those from issue.
-   runs-on: ubuntu-latest
-   steps:
-    - name: say hello
-      if: contains(github.event.comment.body, '/support')   # check the comment if it contains the keywords
-      run: |
-       echo say hello
-    - name: test
-      if: contains(github.event.comment.body, '/test')  # check the comment if it contains the keywords
-      run: |
-       echo test
+  comment-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Display Comment
+        env:
+          comment: ${{ toJson(github.event.comment) }}
+        run: |
+          echo "Comment was created on pull request #${{ env.comment.pull_request_url }} by ${{ env.comment.user.login }} with the following content: ${{ env.comment.body }}"
