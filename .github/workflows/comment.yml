@@ -34,7 +34,6 @@ jobs:
         else
           echo "Comment doesnot contains atlantis plan in it"
         fi
-        pip3 install requests
-        python3 ./.github/actions/sample2.py
+        
 #
  
