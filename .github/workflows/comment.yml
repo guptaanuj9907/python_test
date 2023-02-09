@@ -17,14 +17,13 @@ jobs:
       run: |
         echo "Checking comment body"
         echo github.event.comment.body: ${{ github.event.comment.body }}
-        if echo "${{ github.event.comment.body }}" | grep -q "atlantis plan"; then
+        if echo "${{ github.event.comment.body }}" | grep -q -E '^atlantis plan'; then
           echo "Comment contains atlantis plan"
-          echo anuj : $PWD
-          pip3 install requests
+          echo pwd : $PWD
           python3 ./.github/actions/sample.py
         else
           echo "Comment doesnot contains atlantis plan in it"
         fi
       
  #
- #
+ 
