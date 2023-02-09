@@ -11,4 +11,4 @@ jobs:
     steps:
       - name: Display a message
         run: |
-          echo "PR #${{ env.GITHUB_EVENT_NUMBER }} has been closed."
+          echo "PR #${{ env.GITHUB_EVENT_NUMBER }} has been closed.."
