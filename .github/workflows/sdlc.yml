@@ -1,10 +1,10 @@
 name: SDLC
 on: 
   workflow_dispatch:
-  # pull_request:
-  #   types:
-  #     - opened
-  #     - reopened
+  pull_request:
+    types:
+      - opened
+      - reopened
 
 jobs:
   check_prs:
