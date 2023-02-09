@@ -15,6 +15,8 @@ def get_pr_number():
         print("-----Geting the PR number-----")
         ref = os.getenv('GITHUB_REF')
         arr = ref.split("/")
+        print("GITHUB REF :",str(ref))
+        print("PR no",str(arr[2]))
         return arr[2]
     except Exception as e:
         print("Error in get_pr_num",str(e))
