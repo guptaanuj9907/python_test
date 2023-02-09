@@ -20,6 +20,10 @@ jobs:
       uses: actions/setup-python@v2.2.2
       with:
         python-version: 3.8
+    - name: Check event type
+      run: |
+        echo "Event type: ${{ github.event_name }}"
+
     - name: Execute Python Script
       env: 
         GIT_TOKEN: ${{ github.token }}
