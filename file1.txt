@@ -1,1 +1,15 @@
-jhgjhbjss
+import boto3
+
+def lambda_handler(event, context):
+    s3 = boto3.client('s3')
+    bucket_name = 'my-bucket'
+    file_name = 'file.txt'
+    
+    # Get the file from the S3 bucket
+    response = s3.get_object(Bucket=bucket_name, Key=file_name)
+    file_content = response['Body'].read().decode('utf-8')
+    
+    # Do something with the file content
+    print(file_content)
+    
+    return 'File content accessed successfully'
