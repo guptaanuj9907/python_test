@@ -8,7 +8,7 @@ on:
     types: [created]
 
 jobs:
-  run_script:
+  comment_check:
     runs-on: ubuntu-latest
     permissions: write-all
     steps:
