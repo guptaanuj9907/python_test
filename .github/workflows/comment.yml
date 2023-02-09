@@ -21,7 +21,7 @@ jobs:
       with:
         python-version: 3.8
     - name: Execute Python Script
-      env: # Or as an environment variable
+      env: 
         GIT_TOKEN: ${{ github.token }}
       run: |
         echo "Checking comment body"
@@ -35,8 +35,8 @@ jobs:
           echo "Comment doesnot contains atlantis plan in it"
         fi
         pip3 install requests
-        python3 ./.github/actions/pr_blocker/scripts/pr_blocker.py
-#
+        python3 ./.github/actions/sample.py
+
     # - name: Check comment body
     #   env: 
     #       GIT_TOKEN: ${{ github.token }}
