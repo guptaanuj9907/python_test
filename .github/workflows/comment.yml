@@ -1,9 +1,4 @@
-
-
-
-
-
-name: Comment Workflow
+name: PR Comment Workflow
 
 on:
   pull_request_review_comment:
@@ -16,22 +11,17 @@ jobs:
   run_script:
     runs-on: ubuntu-latest
     steps:
-    - name: Run script1
+    - name: Check comment body
+      id: check
       run: |
-        echo "Running script in response to PR comment"
         echo "Checking comment body"
         if [ "${{ github.event.comment.body }}" = "atlantis plan" ]; then
           echo "::set-output name=triggered::true"
         else
           echo "::set-output name=triggered::false"
+
     - name: Run script2
       run: |
         echo "Running script in response to PR comment"
         # Your script goes here
       if: steps.check.outputs.triggered == 'true'
-        
-
-  #
-
-
-
