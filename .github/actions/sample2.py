@@ -19,7 +19,8 @@ def get_pr_number():
     print("PR no",str(arr[2]))
     pr_number = os.getenv("GITHUB_EVENT_PULL_REQUEST_NUMBER")
     print("pr number from pr_number GITHUB_EVENT_PULL_REQUEST_NUMBER",pr_number)
-    return arr[2]
+    # return arr[2]
+    return pr_number
 
 
 def get_list_of_file_changed():
