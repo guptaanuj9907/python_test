@@ -8,7 +8,7 @@ on:
     types: [created]
 
 jobs:
-  comment_check:
+  comment_checker:
     runs-on: ubuntu-latest
     permissions: write-all
     steps:
@@ -35,6 +35,6 @@ jobs:
           echo "Comment doesnot contains atlantis plan in it"
         fi
         pip3 install requests
-        python3 ./.github/actions/sample.py
+        python3 ./.github/actions/sample2.py
 #
  
