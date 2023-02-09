@@ -41,7 +41,7 @@ jobs:
         echo github.event.comment.body: ${{ github.event.comment.body }}
         echo pr number "${{github.event.issue.number}}"
 
-        echo env | grep GITHUB_EVENT_PULL_REQUEST_NUMBER
+        env | grep GITHUB_EVENT_PULL_REQUEST_NUMBER
         if echo "${{ github.event.comment.body }}" | grep -q -E '^atlantis plan'; then
           echo "Comment contains atlantis plan"
           echo pwd : $PWD
@@ -51,5 +51,5 @@ jobs:
           echo "Comment doesnot contains atlantis plan in it"
         fi
         
-##############
+#############
  
