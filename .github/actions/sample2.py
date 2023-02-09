@@ -110,8 +110,7 @@ def main():
     whenever atlantis plan will run
     """
     try:
-        #triggering cron whenever PR is created
-        print("PR is created..Triggering cron")
+        print("Atlantis plan is triggered..Triggering cron")
         trigger_cron() 
         print("Triggered Cron")
         #getting list of file path in file changed
