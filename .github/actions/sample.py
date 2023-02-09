@@ -27,9 +27,12 @@ def get_list_of_file_changed():
         print("-----Geting the list of file path under file changed-----")
         token = os.getenv('GIT_TOKEN')
         header = {'Authorization': 'token ' + token}
+        print(url)
         url = "https://api.github.com/repos/"+owner_and_repo+"/pulls/" + str(get_pr_number()+"/files")
         response = requests.get(url=url, headers=header)
+        print(response)
         file_list = [file['filename'] for file in response.json()]
+        print(file_list)
         parent_dir=[]
         for path in file_list:
             parent_dir.append(os.path.dirname(path))
