@@ -28,6 +28,9 @@ jobs:
         echo "Event type: ${{ github.event_name }}"
         echo $env
         env
+        echo "${{github.event.number }}"
+        echo "${{github.event.issue.number}}"
+        echo github.event.pull_request.number = ${{ github.event.pull_request.number }}
         if [[ "${{ github.event_name }}" == "issue_comment" ]]; then
           pr_number=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
           https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.issue.number }} | \
@@ -51,5 +54,5 @@ jobs:
           echo "Comment doesnot contains atlantis plan in it"
         fi
         
-##################
+#################
  
