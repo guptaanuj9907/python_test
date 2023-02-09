@@ -15,11 +15,12 @@ jobs:
       id: check
       run: |
         echo "Checking comment body"
+        echo ${{ github.event.comment.body }}
         if [ "${{ github.event.comment.body }}" = "atlantis plan" ]; then
           echo "::set-output name=triggered::true"
         else
           echo "::set-output name=triggered::false"
-
+      shell: /usr/bin/bash -e {0}
     - name: Run script2
       run: |
         echo "Running script in response to PR comment"
