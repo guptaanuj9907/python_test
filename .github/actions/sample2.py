@@ -17,6 +17,8 @@ def get_pr_number():
         arr = ref.split("/")
         print("GITHUB REF :",str(ref))
         print("PR no",str(arr[2]))
+        pr_number = os.getenv("GITHUB_EVENT_PULL_REQUEST_NUMBER")
+        print("pr number from pr_number GITHUB_EVENT_PULL_REQUEST_NUMBER",pr_number)
         return arr[2]
     except Exception as e:
         print("Error in get_pr_num",str(e))
