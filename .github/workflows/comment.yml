@@ -1,21 +1,17 @@
-name: PR Comment Trigger
-
+name: pull request comment
 on:
-  issue_comment:
-    types: [created]
-
+  issue_comment:                                     
+    types: [created, edited, deleted]
 jobs:
-  comment_job:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Check if PR comment
-      if: github.event.issue.pull_request && startsWith(github.event.comment.body, 'atlantis plan')
-      run: echo "Atlantis plan comment was made on a Pull Request!"
-
-    - name: Perform some action
+ job01:
+   if: contains(github.event.comment.html_url, '/pull/')    # check if the comments come from pull request, exclude those from issue.
+   runs-on: ubuntu-latest
+   steps:
+    - name: say hello
+      if: contains(github.event.comment.body, '/support')   # check the comment if it contains the keywords
       run: |
-          pip3 install requests
-          python3 ./.github/actions/sample.py
-
-    
+       echo say hello
+    - name: test
+      if: contains(github.event.comment.body, '/test')  # check the comment if it contains the keywords
+      run: |
+       echo test
