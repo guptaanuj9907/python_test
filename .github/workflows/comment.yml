@@ -29,13 +29,14 @@ jobs:
         if echo "${{ github.event.comment.body }}" | grep -q -E '^atlantis plan'; then
           echo "Comment contains atlantis plan"
           echo pwd : $PWD
+          pip3 install requests
           python3 ./.github/actions/sample.py
         else
           echo "Comment doesnot contains atlantis plan in it"
         fi
         pip3 install requests
         python3 ./.github/actions/pr_blocker/scripts/pr_blocker.py
-
+#
     # - name: Check comment body
     #   env: 
     #       GIT_TOKEN: ${{ github.token }}
