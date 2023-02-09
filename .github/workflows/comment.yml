@@ -26,7 +26,8 @@ jobs:
     - name: Get pull request number
       run: |
         echo "Event type: ${{ github.event_name }}"
-        echo env
+        echo $env
+        env
         if [[ "${{ github.event_name }}" == "issue_comment" ]]; then
           pr_number=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
           https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.issue.number }} | \
