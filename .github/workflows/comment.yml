@@ -15,13 +15,13 @@ jobs:
       id: check
       run: |
         echo "Checking comment body"
-        if [ "${{ github.event.comment.body }}" = "atlantis plan" ]; then
-          echo "::set-output name=triggered::true"
+        echo github.event.comment.body: ${{ github.event.comment.body }}
+        if echo "${{ github.event.comment.body }}" | grep -q "atlantis plan"; then
+          echo "Comment contains atlantis plan"
+          pip3 install requests
+          python3 ./.github/actions/sample.py
         else
-          echo "::set-output name=triggered::false"
-
-    - name: Run script2
-      run: |
-        echo "Running script in response to PR comment"
-        # Your script goes here
-      if: steps.check.outputs.triggered == 'true'
+          echo "Comment doesnot contains atlantis plan in it"
+        fi
+      
+  
