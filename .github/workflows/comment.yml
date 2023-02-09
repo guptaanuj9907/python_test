@@ -16,57 +16,22 @@ jobs:
   run_script:
     runs-on: ubuntu-latest
     steps:
-    - name: Run script
+    - name: Run script1
+      run: |
+        echo "Running script in response to PR comment"
+        echo "Checking comment body"
+        if [ "${{ github.event.comment.body }}" = "atlantis plan" ]; then
+          echo "::set-output name=triggered::true"
+        else
+          echo "::set-output name=triggered::false"
+    - name: Run script2
       run: |
         echo "Running script in response to PR comment"
         # Your script goes here
+      if: steps.check.outputs.triggered == 'true'
+        
 
   
 
-# jobs:
-#   hello:
-#     runs-on: ubuntu-latest
-#     steps:
-#     - name: Check comment body
-#       id: check
-#       run: |
-#         echo "Checking comment body"
-#         if [ "${{ github.event.comment.body }}" = "atlantis plan" ]; then
-#           echo "::set-output name=triggered::true"
-#         else
-#           echo "::set-output name=triggered::false"
-
-#     - run: |
-#         pip3 install requests
-#         python3 ./.github/actions/sample.py
-#         echo "Workflow triggered successfully!"
-#       if: steps.check.outputs.triggered == 'true'
 
 
-
-
-
-
-
-# name: Comment Workflow
-
-# on:
-#   pull_request_review_comment:
-#     types: [created]
-  
-#   issue_comment:
-#     types: [created]
-  
-
-# jobs:
-#   hello:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: alexjurkiewicz/pr-comment-github-deployment@master
-#         env:
-#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#       # - run: 'echo Found it!'
-#       #   if: steps.check.outputs.triggered == 'true'
-#           run: |
-#             pip3 install requests
-#             python3 ./.github/actions/sample.py
