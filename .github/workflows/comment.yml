@@ -21,7 +21,7 @@ jobs:
           echo "Comment contains atlantis plan"
           echo anuj : $PWD
           pip3 install requests
-          python3 ./.github/actions/sample.py
+          python3 /home/runner/work/python_test/python_test/.github/actions/sample.py
         else
           echo "Comment doesnot contains atlantis plan in it"
         fi
