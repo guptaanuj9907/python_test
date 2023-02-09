@@ -11,12 +11,7 @@ def get_pr_number():
     """
     Method returns the PR number whenever PR is opened or reopened
     """
-    
     print("-----Geting the PR number-----")
-    ref = os.getenv('GITHUB_REF')
-    arr = ref.split("/")
-    print("GITHUB REF :",str(ref))
-    print("PR no",str(arr[2]))
     pr_number = os.getenv("GITHUB_EVENT_PULL_REQUEST_NUMBER")
     print("pr number from pr_number GITHUB_EVENT_PULL_REQUEST_NUMBER",pr_number)
     # return arr[2]
