@@ -12,19 +12,19 @@ def get_pr_number():
     Method returns the PR number whenever PR is opened or reopened
     """
     try:
-        logging.info("-----Geting the PR number-----")
+        print("-----Geting the PR number-----")
         ref = os.getenv('GITHUB_REF')
         arr = ref.split("/")
         return arr[2]
     except Exception as e:
-        logging.error("Error in get_pr_num",str(e))
+        print("Error in get_pr_num",str(e))
 
 def get_list_of_file_changed():
     """
     Method returns the list of file path under file changed
     """
     try:
-        logging.info("-----Geting the list of file path under file changed-----")
+        print("-----Geting the list of file path under file changed-----")
         token = os.getenv('GIT_TOKEN')
         header = {'Authorization': 'token ' + token}
         url = "https://api.github.com/repos/"+owner_and_repo+"/pulls/" + str(get_pr_number()+"/files")
@@ -35,21 +35,21 @@ def get_list_of_file_changed():
             parent_dir.append(os.path.dirname(path))
         return parent_dir
     except Exception as e:
-        logging.error("Error in get_list_of_file_changed",str(e))
+        print("Error in get_list_of_file_changed",str(e))
 
 def close_pr():
     """
     Method closes the opened PR
     """
     try:
-        logging.info("-----Closing the PR-----")
+        print("-----Closing the PR-----")
         token = os.getenv('GIT_TOKEN')
         header = {'Authorization': 'token ' + token}
         url = "https://api.github.com/repos/"+owner_and_repo+"/pulls/" + str(get_pr_number())
         payload = {"state":"closed"}
         response = requests.patch(url=url, headers=header, data = json.dumps(payload))
     except Exception as e:
-        logging.error("Error in close_pr",str(e))
+        print("Error in close_pr",str(e))
 
 
 def get_block_directory_list():
@@ -57,14 +57,14 @@ def get_block_directory_list():
     Method returns the block directory list from RDS
     """
     try:
-        logging.info("-----Geting the block directory list-----")
+        print("-----Geting the block directory list-----")
         block_dir=[]
         with open(".github/block_dir_list") as file:
             for line in file:
                 block_dir.append(line.strip())
         return block_dir
     except Exception as e:
-        logging.error("Error in get_block_directory_list",str(e))
+        print("Error in get_block_directory_list",str(e))
 
 def compare_file_changed_and_block_directory(file_changed,block_directory):
     """
@@ -72,7 +72,7 @@ def compare_file_changed_and_block_directory(file_changed,block_directory):
     Returns boolean
     """
     try:
-        logging.info("-----Comapring file changed and block directory file path-----")
+        print("-----Comapring file changed and block directory file path-----")
         file_present=False
         for file_path in file_changed:
             if file_path in block_directory:
@@ -80,18 +80,18 @@ def compare_file_changed_and_block_directory(file_changed,block_directory):
                 break
         return file_present
     except Exception as e:
-        logging.error("Error in compare_file_changed_and_block_directory",str(e))
+        print("Error in compare_file_changed_and_block_directory",str(e))
 
 def trigger_cron():
     """
     Method trigger cron whenver PR is opened
     """
     try:
-        logging.info("-----Triggering Cron-----")
+        print("-----Triggering Cron-----")
     #This method should trigger the con whenever PR is created
         pass
     except Exception as e:
-        logging.error("Error in trigger_cron",str(e))
+        print("Error in trigger_cron",str(e))
 
 def comment_plan():
     pass
@@ -108,11 +108,11 @@ def main():
     """
     try:
         #triggering cron whenever PR is created
-        logging.info("PR is created..Triggering cron")
+        print("PR is created..Triggering cron")
         trigger_cron() 
-        logging.info("Triggered Cron")
+        print("Triggered Cron")
         #getting list of file path in file changed
-        logging.info("Getting list of file paths of file changed")
+        print("Getting list of file paths of file changed")
         file_changed=get_list_of_file_changed() 
         print("file_changed = ",file_changed)
         #getting the block directory list
