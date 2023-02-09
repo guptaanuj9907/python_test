@@ -1,4 +1,4 @@
-amnfmsss
+amnfmssss
 Getting list of file paths of file changed
 file_changed =  ['.github/actions', '.github/workflows', 'iam/cde']
 Getting the list of directory for eg IAM and S3
