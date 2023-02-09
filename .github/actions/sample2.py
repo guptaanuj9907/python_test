@@ -21,7 +21,7 @@ def get_pr_number():
         print("pr number from pr_number GITHUB_EVENT_PULL_REQUEST_NUMBER",pr_number)
         return arr[2]
     except Exception as e:
-        print("Error in get_pr_num",str(e))
+        logging.error("Error in get_pr_num",str(e))
 
 def get_list_of_file_changed():
     """
@@ -42,7 +42,7 @@ def get_list_of_file_changed():
             parent_dir.append(os.path.dirname(path))
         return parent_dir
     except Exception as e:
-        print("Error in get_list_of_file_changed",str(e))
+        logging.error("Error in get_list_of_file_changed",str(e))
 
 def close_pr():
     """
@@ -56,7 +56,7 @@ def close_pr():
         payload = {"state":"closed"}
         response = requests.patch(url=url, headers=header, data = json.dumps(payload))
     except Exception as e:
-        print("Error in close_pr",str(e))
+        logging.error("Error in close_pr",str(e))
 
 
 def get_block_directory_list():
@@ -71,7 +71,7 @@ def get_block_directory_list():
                 block_dir.append(line.strip())
         return block_dir
     except Exception as e:
-        print("Error in get_block_directory_list",str(e))
+        logging.error("Error in get_block_directory_list",str(e))
 
 def compare_file_changed_and_block_directory(file_changed,block_directory):
     """
@@ -87,7 +87,7 @@ def compare_file_changed_and_block_directory(file_changed,block_directory):
                 break
         return file_present
     except Exception as e:
-        print("Error in compare_file_changed_and_block_directory",str(e))
+        logging.error("Error in compare_file_changed_and_block_directory",str(e))
 
 def trigger_cron():
     """
@@ -98,7 +98,7 @@ def trigger_cron():
     #This method should trigger the con whenever PR is created
         pass
     except Exception as e:
-        print("Error in trigger_cron",str(e))
+        logging.error("Error in trigger_cron",str(e))
 
 def comment_plan():
     pass
@@ -137,7 +137,7 @@ def main():
             print("No Drift !!!!!!!!!!!!!...Trigger the cron job again when someone run atlantis plan")
             comment_plan()
     except Exception as e:
-        print("Error in get_pr_num",str(e))
+        logging.error("Error in get_pr_num",str(e))
     
 
 if __name__ == "__main__":
