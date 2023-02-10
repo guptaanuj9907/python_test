@@ -19,6 +19,8 @@ if atlantis_apply_success:
   comments_url = "https://api.github.com/repos/{}/"+owner+"/"+repository+"/pulls/{}/comments".format(owner, pull_request_number)
   response = requests.get(comments_url)
   comments = response.json()
+  print("response :",response)
+  print(comments)
 
   # Look for a comment containing "Apply Failed"
   apply_failed = False
