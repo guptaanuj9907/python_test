@@ -20,7 +20,7 @@ data = {
     "commit_title": "Merge pull request",
     "commit_message": "Merging pull request"
 }
-response = requests.post(url=url, headers=header,json=data)
+response = requests.put(url=url, headers=header,json=data)
 print(response)
 if response.status_code == 200:
     print("Merge successful")
