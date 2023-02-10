@@ -14,7 +14,7 @@ pull_request_number = os.environ['GITHUB_EVENT_PULL_REQUEST_NUMBER']
 # write logic here to determine if atlantis apply ran successfully
 token = os.getenv('GIT_TOKEN')
 header = {'Authorization': 'token ' + token,"Accept": "application/vnd.github+json"}
-url = "https://api.github.com/repos/"+owner_and_repo+"/pulls/" + str(pull_request_number()+"/merge")
+url = "https://api.github.com/repos/"+owner_and_repo+"/pulls/" + str(pull_request_number())+"/merge"
 print(url)
 data = {
     "commit_title": "Merge pull request",
@@ -26,3 +26,5 @@ if response.status_code == 200:
     print("Merge successful")
 else:
     print("Merge failed")
+
+    #
