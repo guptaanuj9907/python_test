@@ -26,3 +26,5 @@ if response.status_code == 200:
     print("Merge successful")
 else:
     print("Merge failed")
+
+    #
