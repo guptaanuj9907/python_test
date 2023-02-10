@@ -8,7 +8,7 @@ on:
     types: [created]
 
 jobs:
-  comment_checker_plan:
+  comment_checker:
     runs-on: ubuntu-latest
     permissions: write-all
     steps:
@@ -53,10 +53,10 @@ jobs:
           #write a logic to check whether atlantis apply ran successfully or not
           #if it ran successfully then run atlantis plan and check the drift
           pip3 install requests
-          python3 ./.github/actions/tatlantis_apply.py
+          python3 ./.github/actions/atlantis_apply.py
         else
           echo "Comment doesnot contains atlantis plan or atlantis apply in it"
         fi
         
-###########s
+###########
  
