@@ -90,13 +90,8 @@ def trigger_cron():
     """
     try:
         print("-----Triggering Cron-----")
-    #This method should trigger the con whenever PR is created
-        pass
     except Exception as e:
         logging.error("Error in trigger_cron",str(e))
-
-def comment_plan():
-    pass
 
 def main():
     """
@@ -130,7 +125,7 @@ def main():
     else:
         print("File change file path is NOT present in BLOCK DIRECTORY")
         print("No Drift !!!!!!!!!!!!!...Trigger the cron job again when someone run atlantis plan")
-        comment_plan()
+        
     # except Exception as e:
     #     logging.error("Error in get_pr_num",str(e))
     
