@@ -48,7 +48,7 @@ jobs:
           pip3 install requests
           python3 ./.github/actions/triggered_comment.py
         elif echo "${{ github.event.comment.body }}" | grep -q -E '^atlantis apply'; then
-          echo "Comment contains atlantis plan"
+          echo "Comment contains atlantis apply"
           echo pwd : $PWD
           #write a logic to check whether atlantis apply ran successfully or not
           #if it ran successfully then run atlantis plan and check the drift
@@ -58,5 +58,5 @@ jobs:
           echo "Comment doesnot contains atlantis plan or atlantis apply in it"
         fi
         
-###########
+###########s
  
