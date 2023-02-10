@@ -8,7 +8,7 @@ on:
     types: [created]
 
 jobs:
-  comment_checker_apply:
+  comment_checker_plan:
     runs-on: ubuntu-latest
     permissions: write-all
     steps:
@@ -42,15 +42,20 @@ jobs:
         echo pr number "${{github.event.issue.number}}"
 
         env | grep GITHUB_EVENT_PULL_REQUEST_NUMBER
-        if echo "${{ github.event.comment.body }}" | grep -q -E '^atlantis apply'; then
-          echo "Comment contains atlantis apply"
+        if echo "${{ github.event.comment.body }}" | grep -q -E '^atlantis plan'; then
+          echo "Comment contains atlantis plan"
+          echo pwd : $PWD
+          pip3 install requests
+          python3 ./.github/actions/triggered_comment.py
+        elif echo "${{ github.event.comment.body }}" | grep -q -E '^atlantis apply'; then
+          echo "Comment contains atlantis plan"
           echo pwd : $PWD
           #write a logic to check whether atlantis apply ran successfully or not
           #if it ran successfully then run atlantis plan and check the drift
-          #after this do a merge
           pip3 install requests
-          pip3 install requests
-          python3 ./.github/actions/atlantis_apply.py
+          python3 ./.github/actions/tatlantis_apply.py
+        else
+          echo "Comment doesnot contains atlantis plan or atlantis apply in it"
         fi
         
 ###########
