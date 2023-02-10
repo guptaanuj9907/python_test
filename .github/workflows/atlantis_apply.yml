@@ -8,7 +8,7 @@ on:
     types: [created]
 
 jobs:
-  comment_checker:
+  comment_checker_apply:
     runs-on: ubuntu-latest
     permissions: write-all
     steps:
