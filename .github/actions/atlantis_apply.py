@@ -1,7 +1,7 @@
 import os
 import requests
 
-# Get the value of GITHUB_REPOSITORY and extract the owner
+## Get the value of GITHUB_REPOSITORY and extract the owner
 print("ENV = ")
 print(os.environ)
 repo = os.environ['GITHUB_REPOSITORY']  #guptaanuj9907/python_test
