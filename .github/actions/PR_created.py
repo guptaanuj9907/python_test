@@ -130,6 +130,9 @@ def main():
         if compare_file_changed_and_block_directory(file_changed=file_changed,block_directory=block_dir):
             print("File change file path is present in BLOCK DIRECTORY")
             #have to check if the PR raiser is same person who created the drift then do nothing else close the pr
+            print('GITHUB_REPOSITORY_OWNER :',os.getenv('GITHUB_REPOSITORY_OWNER'))
+            print('GITHUB_ACTOR :',os.getenv('GITHUB_ACTOR'))
+            print('GITHUB_TRIGGERING_ACTOR :',os.getenv('GITHUB_TRIGGERING_ACTOR'))
             print("Closing the PR")
             close_pr()
         else:
