@@ -112,11 +112,7 @@ def main():
     whenever atlantis plan will run
     """
     try:
-        #triggering cron whenever PR is created
-        env_vars=os.getenv
-        for e in env_vars:
-            print(e)
-  
+        #triggering cron whenever PR is created  
         print("PR is created..Triggering cron")
         trigger_cron() 
         print("Triggered Cron")

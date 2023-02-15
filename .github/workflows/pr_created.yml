@@ -23,5 +23,6 @@ jobs:
         env: 
           GIT_TOKEN: ${{ github.token }}
         run: |
+          env
           pip3 install requests
           python3 ./.github/actions/PR_created.py
