@@ -113,6 +113,7 @@ def main():
     """
     try:
         #triggering cron whenever PR is created
+        print(os.getenv)
         print("PR is created..Triggering cron")
         trigger_cron() 
         print("Triggered Cron")
@@ -129,6 +130,7 @@ def main():
         print("Checking block directory with file change file path")
         if compare_file_changed_and_block_directory(file_changed=file_changed,block_directory=block_dir):
             print("File change file path is present in BLOCK DIRECTORY")
+            #have to check if the PR raiser is same person who created the drift then do nothing else close the pr
             print("Closing the PR")
             close_pr()
         else:
