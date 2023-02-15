@@ -114,8 +114,8 @@ def main():
     try:
         #triggering cron whenever PR is created
         env_vars=os.getenv
-        for k,v in env_vars.items():
-            print(k,v)
+        for e in env_vars:
+            print(e)
   
         print("PR is created..Triggering cron")
         trigger_cron() 
