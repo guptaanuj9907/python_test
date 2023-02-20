@@ -66,7 +66,7 @@ def get_block_directory_list():
     import boto3
 
     # S3 bucket and file information
-    bucket_name = 'test-state-bucket2'
+    bucket_name = 'test-state-bucket'
     file_key = 'sdlc_block_directory_list.csv'
     
     ACCESS_KEY=os.getenv('AWS_ACCESS_KEY_ID')
