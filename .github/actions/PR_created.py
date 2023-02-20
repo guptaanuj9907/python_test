@@ -93,8 +93,8 @@ def get_block_directory_list():
     block_dir=[]
     # block_dir = [line.strip().replace('"', '') for line in file_contents.split('\n') if line.strip() and len(line.strip()) > 0]
     for line in file_contents.split('\n'):
-        print("line :",line,len(line))
-        if len(line)>0:
+        print("line :",line,len(line.strip()))
+        if len(line.strip())>0:
             block_dir.append(line)
     print("block_dir")
     # print(block_dir)
