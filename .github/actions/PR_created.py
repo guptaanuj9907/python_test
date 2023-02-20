@@ -63,11 +63,45 @@ def get_block_directory_list():
     """
     # try:
     print("-----Geting the block directory list-----")
-    block_dir=[]
-    with open(".github/block_dir_list") as file:
-        for line in file:
-            block_dir.append(line.strip())
+    import boto3
+
+    # S3 bucket and file information
+    bucket_name = 'test-state-bucket2'
+    file_key = 'sdlc_block_directory_list.csv'
+    
+    ACCESS_KEY=os.getenv('AWS_ACCESS_KEY_ID')
+    print("ACCESS_KEY",ACCESS_KEY)
+    SECRET_ACCESS_KEY=os.getenv('AWS_SECRET_ACCESS_KEY')
+    print("SECRET_ACCESS_KEY",SECRET_ACCESS_KEY)
+    # Create an S3 client
+    s3 = boto3.client('s3')
+
+    
+
+    # Get the object containing the file
+    s3_object = s3.get_object(Bucket=bucket_name, Key=file_key)
+    print("s3_object")
+    print(s3_object)
+
+    # Read the contents of the file
+    file_contents = s3_object['Body'].read().decode('utf-8')
+    print("file_contents")
+
+
+    # Print the contents of the file
+    print(file_contents)
+    file_contents_list=[]
+    file_contents_list = [line.strip().replace('"', '') for line in file_contents.split('\n') if line.strip() and len(line.strip()) > 0]
+    block_dir=[string for string in file_contents_list if len(string)>0]
+
+    print("block_dir")
     return block_dir
+
+    # block_dir=[]
+    # with open(".github/block_dir_list") as file:
+    #     for line in file:
+    #         block_dir.append(line.strip())
+    # return block_dir
     # except Exception as e:
     #     print("Error in get_block_directory_list",str(e))
 
