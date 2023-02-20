@@ -80,7 +80,7 @@ def get_block_directory_list():
     # s3 = boto3.client('s3')
 
 
-    # Get the object containing the files
+    # Get the object containing the file
     s3_object = s3.get_object(Bucket=bucket_name, Key=file_key)
     print("s3_object")
     print(s3_object)
