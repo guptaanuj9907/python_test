@@ -98,7 +98,7 @@ def get_block_directory_list():
             block_dir.append(line)
     print("block_dir")
     # print(block_dir)
-    # return block_dir
+    return block_dir
 
     # block_dir=[]
     # with open(".github/block_dir_list") as file:
