@@ -78,7 +78,7 @@ def get_block_directory_list():
     # s3 = boto3.client('s3')
 
 
-    session = boto3.Session(profile_name='stage')
+    session = boto3.Session(profile_name='default')
     s3 = session.resource('s3')
     bucket = s3.Bucket(bucket_name)
     for obj in bucket.objects.all():
