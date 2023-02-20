@@ -91,9 +91,10 @@ def get_block_directory_list():
     # Print the contents of the file
     print(file_contents)
 
-    file_contents_list = file_contents.split('\n')
-    print("file_contents_list")
-    print(file_contents_list)
+    block_dir = [line.strip() for line in file_contents.split('\n')]
+    print("block_dir")
+    print(block_dir)
+    return block_dir
 
     # block_dir=[]
     # with open(".github/block_dir_list") as file:
