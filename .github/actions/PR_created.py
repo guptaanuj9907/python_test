@@ -90,14 +90,11 @@ def get_block_directory_list():
 
     # Print the contents of the file
     print(file_contents)
-    block_dir=[]
-    # block_dir = [line.strip().replace('"', '') for line in file_contents.split('\n') if line.strip() and len(line.strip()) > 0]
-    for line in file_contents.split('\n'):
-        print("line :",line,len(line.strip()))
-        if len(line.strip())>0:
-            block_dir.append(line)
+    file_contents_list=[]
+    file_contents_list = [line.strip().replace('"', '') for line in file_contents.split('\n') if line.strip() and len(line.strip()) > 0]
+    block_dir=[string for string in file_contents_list if len(string)>0]
+
     print("block_dir")
-    # print(block_dir)
     return block_dir
 
     # block_dir=[]
