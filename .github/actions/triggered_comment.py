@@ -1,7 +1,6 @@
 import os
 import json
 import logging
-import datetime
 import requests
 
 # owner_and_repo = "razorpay/vishnu"
@@ -84,29 +83,17 @@ def compare_file_changed_and_block_directory(file_changed,block_directory):
     # except Exception as e:
     #     logging.error("Error in compare_file_changed_and_block_directory",str(e))
 
-def trigger_cron():
-    """
-    Method trigger cron whenver PR is opened
-    """
-    try:
-        print("-----Triggering Cron-----")
-    except Exception as e:
-        logging.error("Error in trigger_cron",str(e))
-
 def main():
     """
     When PR is created this Method
-    1.Trigger the cron
-    2.Get the list of file path under file changed
-    3.Get the list of block directories
-    4.Compare 2 and 3
-    5.Close the PR if 4. returns true else trigger from 1. to 4. again
-    whenever atlantis plan will run
+    1.Get the list of file path under file changed
+    2.Get the list of block directories
+    3.Compare 2 and 3
+    4.If file changed belong to block directory then Close the PR only if it is not created by PR owner 
+    5.If file changed doesnot belong to block directory  run from 1. to 4. again whenever atlantis plan will run
     """
     # try:
-    print("Atlantis plan is triggered..Triggering cron")
-    trigger_cron() 
-    print("Triggered Cron")
+    print("Atlantis plan is triggered..")
     #getting list of file path in file changed
     print("Getting list of file paths of file changed")
     file_changed=get_list_of_file_changed() 
