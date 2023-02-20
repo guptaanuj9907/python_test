@@ -74,11 +74,11 @@ def get_block_directory_list():
     SECRET_ACCESS_KEY=os.getenv('ACCESS_KEY')
     print("SECRET_ACCESS_KEY",SECRET_ACCESS_KEY)
     # Create an S3 client
-    s3 = boto3.client('s3', aws_access_key_id=ACCESS_KEY, aws_secret_access_key=SECRET_ACCESS_KEY)
+    # s3 = boto3.client('s3', aws_access_key_id=ACCESS_KEY, aws_secret_access_key=SECRET_ACCESS_KEY)
     # s3 = boto3.client('s3')
 
 
-    session = boto3.Session(profile_name='default')
+    session = boto3.Session(profile_name='stage')
     s3 = session.resource('s3')
     bucket = s3.Bucket(bucket_name)
     for obj in bucket.objects.all():
