@@ -77,7 +77,7 @@ def get_block_directory_list():
     s3 = boto3.client('s3', aws_access_key_id=ACCESS_KEY, aws_secret_access_key=SECRET_ACCESS_KEY)
     # s3 = boto3.client('s3')
 
-    # Get the object containing the file
+    # Get the object containing the files
     s3_object = s3.get_object(Bucket=bucket_name, Key=file_key)
     print("s3_object")
     print(s3_object)
