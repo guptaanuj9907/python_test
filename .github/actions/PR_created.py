@@ -93,7 +93,7 @@ def get_block_directory_list():
 
     file_contents_list = file_contents.split('\n')
     print("file_contents_list")
-    file_contents_list
+    print(file_contents_list)
 
     # block_dir=[]
     # with open(".github/block_dir_list") as file:
