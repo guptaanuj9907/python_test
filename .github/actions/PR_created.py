@@ -74,8 +74,8 @@ def get_block_directory_list():
     SECRET_ACCESS_KEY=os.getenv('ACCESS_KEY')
     print("SECRET_ACCESS_KEY",SECRET_ACCESS_KEY)
     # Create an S3 client
-    s3 = boto3.client('s3', aws_access_key_id=ACCESS_KEY, aws_secret_access_key=SECRET_ACCESS_KEY)
-    # s3 = boto3.client('s3')
+    # s3 = boto3.client('s3', aws_access_key_id=ACCESS_KEY, aws_secret_access_key=SECRET_ACCESS_KEY)
+    s3 = boto3.client('s3')
 
     response = s3.list_objects_v2(Bucket=bucket_name)
 
