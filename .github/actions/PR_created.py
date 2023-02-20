@@ -66,7 +66,7 @@ def get_block_directory_list():
     import boto3
 
     # S3 bucket and file information
-    bucket_name = 'test-state-bucket'
+    bucket_name = 'test-state-bucket2'
     file_key = 'sdlc_block_directory_list.csv'
     
     ACCESS_KEY=os.getenv('AWS_ACCESS_KEY_ID')
@@ -77,30 +77,20 @@ def get_block_directory_list():
     # s3 = boto3.client('s3', aws_access_key_id=ACCESS_KEY, aws_secret_access_key=SECRET_ACCESS_KEY)
     s3 = boto3.client('s3')
 
-    response = s3.list_objects_v2(Bucket=bucket_name)
-
-    # Print the file names
-    while True:
-        for obj in response['Contents']:
-            print(obj['Key'])
-
-        if response['IsTruncated']:
-            response = s3.list_objects_v2(Bucket=bucket_name, ContinuationToken=response['NextContinuationToken'])
-        else:
-            break
+    
 
     # Get the object containing the file
-    # s3_object = s3.get_object(Bucket=bucket_name, Key=file_key)
-    # print("s3_object")
-    # print(s3_object)
+    s3_object = s3.get_object(Bucket=bucket_name, Key=file_key)
+    print("s3_object")
+    print(s3_object)
 
-    # # Read the contents of the file
-    # file_contents = s3_object['Body'].read().decode('utf-8')
-    # print("file_contents")
-    # print(file_contents)
+    # Read the contents of the file
+    file_contents = s3_object['Body'].read().decode('utf-8')
+    print("file_contents")
 
-    # # Print the contents of the file
-    # print(file_contents)
+
+    # Print the contents of the file
+    print(file_contents)
 
     # block_dir=[]
     # with open(".github/block_dir_list") as file:
