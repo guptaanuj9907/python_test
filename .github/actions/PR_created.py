@@ -74,7 +74,6 @@ def get_block_directory_list():
     SECRET_ACCESS_KEY=os.getenv('AWS_SECRET_ACCESS_KEY')
     print("SECRET_ACCESS_KEY",SECRET_ACCESS_KEY)
     # Create an S3 client
-    # s3 = boto3.client('s3', aws_access_key_id=ACCESS_KEY, aws_secret_access_key=SECRET_ACCESS_KEY)
     s3 = boto3.client('s3')
 
     
@@ -91,6 +90,10 @@ def get_block_directory_list():
 
     # Print the contents of the file
     print(file_contents)
+
+    file_contents_list = file_contents.split('\n')
+    print("file_contents_list")
+    file_contents_list
 
     # block_dir=[]
     # with open(".github/block_dir_list") as file:
