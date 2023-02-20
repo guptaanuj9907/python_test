@@ -66,10 +66,8 @@ def get_block_directory_list():
     import boto3
 
     # S3 bucket and file information
-    # bucket_name = 'test-state-bucket'
-    bucket_name="aws-athena-query-results-cid-750771246761-ap-south-1"
-    # file_key = 'sdlc_block_directory_list.csv'
-    file_key="0077402c-8f3a-4a4a-be1e-a2fb2b275c03.csv"
+    bucket_name = 'test-state-bucket'
+    file_key = 'sdlc_block_directory_list.csv'
     
     ACCESS_KEY=os.getenv('SECRET_KEY')
     print("ACCESS_KEY",ACCESS_KEY)
