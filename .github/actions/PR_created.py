@@ -77,18 +77,24 @@ def get_block_directory_list():
     s3 = boto3.client('s3', aws_access_key_id=ACCESS_KEY, aws_secret_access_key=SECRET_ACCESS_KEY)
     # s3 = boto3.client('s3')
 
+    response = s3.list_objects_v2(Bucket=bucket_name)
+
+# print object names
+    for obj in response['Contents']:
+        print(obj['Key'])
+
     # Get the object containing the file
-    s3_object = s3.get_object(Bucket=bucket_name, Key=file_key)
-    print("s3_object")
-    print(s3_object)
+    # s3_object = s3.get_object(Bucket=bucket_name, Key=file_key)
+    # print("s3_object")
+    # print(s3_object)
 
-    # Read the contents of the file
-    file_contents = s3_object['Body'].read().decode('utf-8')
-    print("file_contents")
-    print(file_contents)
+    # # Read the contents of the file
+    # file_contents = s3_object['Body'].read().decode('utf-8')
+    # print("file_contents")
+    # print(file_contents)
 
-    # Print the contents of the file
-    print(file_contents)
+    # # Print the contents of the file
+    # print(file_contents)
 
     # block_dir=[]
     # with open(".github/block_dir_list") as file:
