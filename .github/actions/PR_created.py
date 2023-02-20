@@ -69,36 +69,28 @@ def get_block_directory_list():
     bucket_name = 'test-state-bucket'
     file_key = 'sdlc_block_directory_list.csv'
     
-    ACCESS_KEY=os.getenv('SECRET_KEY')
+    ACCESS_KEY=os.getenv('AWS_ACCESS_KEY_ID')
     print("ACCESS_KEY",ACCESS_KEY)
-    SECRET_ACCESS_KEY=os.getenv('ACCESS_KEY')
+    SECRET_ACCESS_KEY=os.getenv('AWS_SECRET_ACCESS_KEY')
     print("SECRET_ACCESS_KEY",SECRET_ACCESS_KEY)
     # Create an S3 client
-    # s3 = boto3.client('s3', aws_access_key_id=ACCESS_KEY, aws_secret_access_key=SECRET_ACCESS_KEY)
+    s3 = boto3.client('s3', aws_access_key_id=ACCESS_KEY, aws_secret_access_key=SECRET_ACCESS_KEY)
     # s3 = boto3.client('s3')
-
-
-    session = boto3.Session(profile_name='profile stage')
-    s3 = session.resource('s3')
-    bucket = s3.Bucket(bucket_name)
-    for obj in bucket.objects.all():
-        print(obj.key)
-
 
 
 
     # Get the object containing the file
-    # s3_object = s3.get_object(Bucket=bucket_name, Key=file_key)
-    # print("s3_object")
-    # print(s3_object)
+    s3_object = s3.get_object(Bucket=bucket_name, Key=file_key)
+    print("s3_object")
+    print(s3_object)
 
-    # # Read the contents of the file
-    # file_contents = s3_object['Body'].read().decode('utf-8')
-    # print("file_contents")
-    # print(file_contents)
+    # Read the contents of the file
+    file_contents = s3_object['Body'].read().decode('utf-8')
+    print("file_contents")
+    print(file_contents)
 
     # Print the contents of the file
-    # print(file_contents)
+    print(file_contents)
 
     # block_dir=[]
     # with open(".github/block_dir_list") as file:
