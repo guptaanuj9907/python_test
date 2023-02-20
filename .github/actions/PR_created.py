@@ -83,7 +83,7 @@ def get_block_directory_list():
     for obj in response['Contents']:
         print(obj['Key'])
 
-    # Get the object containing the file
+    # Get the object containing the files
     # s3_object = s3.get_object(Bucket=bucket_name, Key=file_key)
     # print("s3_object")
     # print(s3_object)
