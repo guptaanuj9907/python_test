@@ -19,10 +19,20 @@ jobs:
         uses: actions/setup-python@v2.2.2
         with:
           python-version: 3.8
+
+      - name: Configure AWS CLI
+        env:
+          AWS_DEFAULT_REGION: ap-south-1
+          AWS_PROFILE: stage
+        run: |
+          pip install awscli
+          aws configure --profile stage
+
       - name: Execute Python Script
         env: 
           GIT_TOKEN: ${{ github.token }}
           AWS_ACCESS_KEY_ID: ${{ secrets.ACCESS_KEY }}
+          # AWS_ACCESS_KEY_ID: ${{ secrets.ACCESS_KEY2 }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.SECRET_ACCESS_KEY }}
           # AWS_SECRET_ACCESS_KEY: ${{ secrets.SECRET_KEY2 }}
         run: |
