@@ -66,19 +66,16 @@ def get_block_directory_list():
     import boto3
 
     # S3 bucket and file information
-    bucket_name = 'test-state-bucket'
-    # bucket_name = 'test-state-bucket2'
+    # bucket_name = 'test-state-bucket'
+    bucket_name = 'test-state-bucket2'
     file_key = 'sdlc_block_directory_list.csv'
     
     ACCESS_KEY=os.getenv('AWS_ACCESS_KEY_ID')
-    print("ACCESS_KEY",ACCESS_KEY)
+    # print("ACCESS_KEY",ACCESS_KEY)
     SECRET_ACCESS_KEY=os.getenv('AWS_SECRET_ACCESS_KEY')
-    print("SECRET_ACCESS_KEY",SECRET_ACCESS_KEY)
+    # print("SECRET_ACCESS_KEY",SECRET_ACCESS_KEY)
     # Create an S3 client
     s3 = boto3.client('s3')
-
-    
-
     # Get the object containing the file
     s3_object = s3.get_object(Bucket=bucket_name, Key=file_key)
     print("s3_object")
