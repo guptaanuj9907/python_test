@@ -64,6 +64,8 @@ def get_block_directory_list():
     # try:
     print("-----Geting the block directory list-----")
     import boto3
+    import csv
+    import io
 
     # S3 bucket and file information
     # bucket_name = 'test-state-bucket'
@@ -85,15 +87,26 @@ def get_block_directory_list():
     file_contents = s3_object['Body'].read().decode('utf-8')
     print("file_contents")
 
+    reader = csv.DictReader(io.StringIO(file_contents))
+    filtered_data = [row for row in reader if row['status'] == 'blocked']
+    print("filtered_data",filtered_data)
+    # Extract the 'block_directory' and 'email' fields
+    blocked_directories = [row['block_directory'] for row in filtered_data]
+    print("blocked_directories",blocked_directories)
+    emails = [row['email'] for row in filtered_data]
+    print("emails",emails)
+
+
+
 
     # Print the contents of the file
-    print(file_contents)
-    file_contents_list=[]
-    file_contents_list = [line.strip().replace('"', '') for line in file_contents.split('\n') if line.strip() and len(line.strip()) > 0]
-    block_dir=[string for string in file_contents_list if len(string)>0]
+    # print(file_contents)
+    # file_contents_list=[]
+    # file_contents_list = [line.strip().replace('"', '') for line in file_contents.split('\n') if line.strip() and len(line.strip()) > 0]
+    # block_dir=[string for string in file_contents_list if len(string)>0]
 
-    print("block_dir")
-    return block_dir
+    # print("block_dir")
+    # return block_dir
 
     # block_dir=[]
     # with open(".github/block_dir_list") as file:
