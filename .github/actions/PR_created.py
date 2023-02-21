@@ -72,9 +72,9 @@ def get_block_directory_list():
     bucket_name = 'test-state-bucket2'
     file_key = 'sdlc_block_directory_list.csv'
     
-    ACCESS_KEY=os.getenv('AWS_ACCESS_KEY_ID')
+    # ACCESS_KEY=os.getenv('AWS_ACCESS_KEY_ID')
     # print("ACCESS_KEY",ACCESS_KEY)
-    SECRET_ACCESS_KEY=os.getenv('AWS_SECRET_ACCESS_KEY')
+    # SECRET_ACCESS_KEY=os.getenv('AWS_SECRET_ACCESS_KEY')
     # print("SECRET_ACCESS_KEY",SECRET_ACCESS_KEY)
     # Create an S3 client
     s3 = boto3.client('s3')
@@ -90,33 +90,18 @@ def get_block_directory_list():
     reader = csv.DictReader(io.StringIO(file_contents))
     filtered_data = [row for row in reader if row['status'] == 'blocked']
     print("filtered_data",filtered_data)
-    # Extract the 'block_directory' and 'email' fields
+    # Extract the 'block_directory','email' and "github_id "fields
     blocked_directories = [row['block_directory'] for row in filtered_data]
     print("blocked_directories",blocked_directories)
     emails = [row['email'] for row in filtered_data]
     print("emails",emails)
+    github_id = [row['github_id'] for row in filtered_data]
+    print("github_id",github_id)
+
+    return blocked_directories,emails,github_id
 
 
-
-
-    # Print the contents of the file
-    # print(file_contents)
-    # file_contents_list=[]
-    # file_contents_list = [line.strip().replace('"', '') for line in file_contents.split('\n') if line.strip() and len(line.strip()) > 0]
-    # block_dir=[string for string in file_contents_list if len(string)>0]
-
-    # print("block_dir")
-    # return block_dir
-
-    # block_dir=[]
-    # with open(".github/block_dir_list") as file:
-    #     for line in file:
-    #         block_dir.append(line.strip())
-    # return block_dir
-    # except Exception as e:
-    #     print("Error in get_block_directory_list",str(e))
-
-def compare_file_changed_and_block_directory(file_changed,block_directory):
+def compare_file_changed_and_block_directory(file_changed,block_directory,emails,github_id):
     """
     Methos compare file path under file changed and blocker directory
     Returns boolean
@@ -124,11 +109,27 @@ def compare_file_changed_and_block_directory(file_changed,block_directory):
     # try:
     print("-----Comapring file changed and block directory file path-----")
     file_present=False
-    for file_path in file_changed:
-        if file_path in block_directory:
+    user_email=None
+    user_github_id=None
+    for i in range(len(block_directory)):
+        if block_directory[i] in file_changed:
+            user_email=emails[i]
+            user_github_id=github_id[i]
             file_present=True
             break
-    return file_present
+    return file_present,user_email,user_github_id
+
+
+
+
+
+
+    # file_present=False
+    # for file_path in file_changed:
+    #     if file_path in block_directory:
+    #         file_present=True
+    #         break
+    # return file_present
     # except Exception as e:
     #     print("Error in compare_file_changed_and_block_directory",str(e))
 
@@ -157,16 +158,20 @@ def main():
     print("file_changed = ",file_changed)
     #getting the block directory list
     print("Getting the list of block directories")
-    block_dir=get_block_directory_list()
+    block_dir,emails,github_id=get_block_directory_list()
     print("block directories list = ",block_dir)
     print("Checking IAM and S3 directory present in file changed file path")
     print("compare_file_changed_and_block_directory = ",compare_file_changed_and_block_directory(file_changed=file_changed,block_directory=block_dir))
     print("Checking block directory with file change file path")
-    if compare_file_changed_and_block_directory(file_changed=file_changed,block_directory=block_dir):
+    file_present,user_email,user_github_id=compare_file_changed_and_block_directory(file_changed=file_changed,block_directory=block_dir,emails=emails,github_id=github_id)
+    if file_present:
         print("File change file path is present in BLOCK DIRECTORY")
+        if os.getenv('GITHUB_REPOSITORY_OWNER') != user_github_id:
         #have to check if the PR raiser is same person who created the drift then do nothing else close the pr
-        print("Closing the PR")
-        close_pr()
+            print("Closing the PR")
+            close_pr()
+        else:
+            print("PR is not being closed since it created by drift creator : {}".format(user_github_id))
     else:
         print("File change file path is NOT present in BLOCK DIRECTORY")
         print("No Drift !!!!!!!!!!!!!...Trigger the cron job again when someone run atlantis plan")
