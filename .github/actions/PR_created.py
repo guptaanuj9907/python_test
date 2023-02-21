@@ -68,14 +68,9 @@ def get_block_directory_list():
     import io
 
     # S3 bucket and file information
-    # bucket_name = 'test-state-bucket'
     bucket_name = 'test-state-bucket2'
     file_key = 'sdlc_block_directory_list.csv'
     
-    # ACCESS_KEY=os.getenv('AWS_ACCESS_KEY_ID')
-    # print("ACCESS_KEY",ACCESS_KEY)
-    # SECRET_ACCESS_KEY=os.getenv('AWS_SECRET_ACCESS_KEY')
-    # print("SECRET_ACCESS_KEY",SECRET_ACCESS_KEY)
     # Create an S3 client
     s3 = boto3.client('s3')
     # Get the object containing the file
@@ -107,7 +102,7 @@ def compare_file_changed_and_block_directory(file_changed,block_directory,emails
     Returns boolean
     """
     # try:
-    print("-----Comapring file changed and block directory file path-----")
+    print("-----Comparing file changed and block directory file path-----")
     file_present=False
     user_email=None
     user_github_id=None
@@ -118,20 +113,6 @@ def compare_file_changed_and_block_directory(file_changed,block_directory,emails
             file_present=True
             break
     return file_present,user_email,user_github_id
-
-
-
-
-
-
-    # file_present=False
-    # for file_path in file_changed:
-    #     if file_path in block_directory:
-    #         file_present=True
-    #         break
-    # return file_present
-    # except Exception as e:
-    #     print("Error in compare_file_changed_and_block_directory",str(e))
 
 
 def comment_plan():
