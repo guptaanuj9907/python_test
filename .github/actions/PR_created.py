@@ -80,16 +80,16 @@ def get_block_directory_list():
     s3 = boto3.client('s3')
     # Get the object containing the file
     s3_object = s3.get_object(Bucket=bucket_name, Key=file_key)
-    print("s3_object")
-    print(s3_object)
+    # print("s3_object")
+    # print(s3_object)
 
     # Read the contents of the file
     file_contents = s3_object['Body'].read().decode('utf-8')
-    print("file_contents")
+    # print("file_contents")
 
     reader = csv.DictReader(io.StringIO(file_contents))
     filtered_data = [row for row in reader if row['status'] == 'blocked']
-    print("filtered_data",filtered_data)
+    # print("filtered_data",filtered_data)
     # Extract the 'block_directory','email' and "github_id "fields
     blocked_directories = [row['block_directory'] for row in filtered_data]
     print("blocked_directories",blocked_directories)
