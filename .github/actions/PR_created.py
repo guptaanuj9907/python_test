@@ -160,10 +160,9 @@ def main():
     print("Getting the list of block directories")
     block_dir,emails,github_id=get_block_directory_list()
     print("block directories list = ",block_dir)
-    print("Checking IAM and S3 directory present in file changed file path")
-    print("compare_file_changed_and_block_directory = ",compare_file_changed_and_block_directory(file_changed=file_changed,block_directory=block_dir))
     print("Checking block directory with file change file path")
     file_present,user_email,user_github_id=compare_file_changed_and_block_directory(file_changed=file_changed,block_directory=block_dir,emails=emails,github_id=github_id)
+    print("Is file changed file path present in block directory :",file_present)
     if file_present:
         print("File change file path is present in BLOCK DIRECTORY")
         if os.getenv('GITHUB_REPOSITORY_OWNER') != user_github_id:
