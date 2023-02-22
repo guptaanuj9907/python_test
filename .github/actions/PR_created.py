@@ -130,6 +130,7 @@ def comment_on_pr(pr_no):
             blocked_emails[email].append(directory)
         else:
             blocked_emails[email] = [directory]
+    print(blocked_emails)
     token = os.getenv('GIT_TOKEN')
     head = {'Authorization': 'token ' + token}
     url = "https://api.github.com/repos/"+owner_and_repo+"/issues/" + str(pr_no) + "/comments"
