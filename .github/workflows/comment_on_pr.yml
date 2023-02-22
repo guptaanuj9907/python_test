@@ -46,7 +46,8 @@ jobs:
           echo "Comment contains atlantis plan"
           echo pwd : $PWD
           pip3 install requests
-          python3 ./.github/actions/triggered_comment.py
+          # python3 ./.github/actions/triggered_comment.py
+          python3 ./.github/actions/PR_created.py
         elif echo "${{ github.event.comment.body }}" | grep -q -E '^atlantis apply'; then
           echo "Comment contains atlantis apply"
           echo pwd : $PWD

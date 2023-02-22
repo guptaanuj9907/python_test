@@ -13,11 +13,19 @@ def get_pr_number():
     """
     # try:
     print("-----Geting the PR number-----")
-    ref = os.getenv('GITHUB_REF')
-    arr = ref.split("/")
-    print("GITHUB REF :",str(ref))
-    print("PR no",str(arr[2]))
-    return arr[2]
+    if os.getenv('GITHUB_EVENT_NAME') == "pull_request":
+        print("GITHUB_EVENT_NAME :",os.getenv('GITHUB_EVENT_NAME'))
+        ref = os.getenv('GITHUB_REF')
+        pr_number = ref.split("/")
+        print("GITHUB REF :",str(ref))
+        print("PR no",str(pr_number[2]))
+        return pr_number[2]
+    elif os.getenv('GITHUB_EVENT_NAME') == "issue_comment":
+        print("GITHUB_EVENT_NAME :",os.getenv('GITHUB_EVENT_NAME'))
+        pr_number = os.getenv("GITHUB_EVENT_PULL_REQUEST_NUMBER")
+        print("pr number from pr_number GITHUB_EVENT_PULL_REQUEST_NUMBER",pr_number)
+        # return arr[2]
+        return pr_number
     # except Exception as e:
     #     print("Error in get_pr_num",str(e))
 

@@ -29,6 +29,4 @@ jobs:
         run: |
           pip3 install requests
           pip3 install boto3
-          env
-
           python3 ./.github/actions/PR_created.py
