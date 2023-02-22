@@ -123,10 +123,11 @@ def compare_file_changed_and_block_directory(file_changed,block_directory,emails
     return file_present,user_email,user_github_id
 
 def comment_on_pr(pr_no):
+    block_dir,_,_=get_block_directory_list()
     token = os.getenv('GIT_TOKEN')
     head = {'Authorization': 'token ' + token}
     url = "https://api.github.com/repos/"+owner_and_repo+"/issues/" + str(pr_no) + "/comments"
-    payload = {"body":"This PR is being closed because you have reached your limit to open PRs!! Please close previous PRs to Open new ones"}
+    payload = {"body":f"This PR is being closed because the directory you are working on belongs to blocked directories...Below is the list of block directories{block_dir}"}
     r = requests.post(url=url, headers=head, data = json.dumps(payload))
     print(r.status_code)
 
