@@ -122,9 +122,15 @@ def compare_file_changed_and_block_directory(file_changed,block_directory,emails
             break
     return file_present,user_email,user_github_id
 
+def comment_on_pr(pr_no):
+    block_dir,email,_=get_block_directory_list()
+    token = os.getenv('GIT_TOKEN')
+    head = {'Authorization': 'token ' + token}
+    url = "https://api.github.com/repos/"+owner_and_repo+"/issues/" + str(pr_no) + "/comments"
+    payload = {"body":f"This PR is being closed because the directory you are working on belongs to blocked directories...list of block directories{block_dir} which is caused by {email}"}
+    r = requests.post(url=url, headers=head, data = json.dumps(payload))
+    print(r.status_code)
 
-def comment_plan():
-    pass
 
 def main():
     """
@@ -157,13 +163,17 @@ def main():
         if os.getenv('GITHUB_REPOSITORY_OWNER') != user_github_id:
         #have to check if the PR raiser is same person who created the drift then do nothing else close the pr
             print("Closing the PR")
-            close_pr()
+            # close_pr()
+            # comment_on_pr(get_pr_number())
+
         else:
             print("PR is not being closed since it created by drift creator : {}".format(user_github_id))
+            close_pr()
+            comment_on_pr(get_pr_number())
     else:
         print("File change file path is NOT present in BLOCK DIRECTORY")
         print("No Drift !!!!!!!!!!!!!...Trigger the cron job again when someone run atlantis plan")
-        comment_plan()
+        
     # except Exception as e:
     #     print("Error in get_pr_num",str(e))
     
