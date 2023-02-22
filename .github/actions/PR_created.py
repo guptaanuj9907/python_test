@@ -13,11 +13,19 @@ def get_pr_number():
     """
     # try:
     print("-----Geting the PR number-----")
-    ref = os.getenv('GITHUB_REF')
-    arr = ref.split("/")
-    print("GITHUB REF :",str(ref))
-    print("PR no",str(arr[2]))
-    return arr[2]
+    if os.getenv('GITHUB_EVENT_NAME') == "pull_request":
+        print("GITHUB_EVENT_NAME :",os.getenv('GITHUB_EVENT_NAME'))
+        ref = os.getenv('GITHUB_REF')
+        pr_number = ref.split("/")
+        print("GITHUB REF :",str(ref))
+        print("PR no",str(pr_number[2]))
+        return pr_number[2]
+    elif os.getenv('GITHUB_EVENT_NAME') == "issue_comment":
+        print("GITHUB_EVENT_NAME :",os.getenv('GITHUB_EVENT_NAME'))
+        pr_number = os.getenv("GITHUB_EVENT_PULL_REQUEST_NUMBER")
+        print("pr number from pr_number GITHUB_EVENT_PULL_REQUEST_NUMBER",pr_number)
+        # return arr[2]
+        return pr_number
     # except Exception as e:
     #     print("Error in get_pr_num",str(e))
 
@@ -68,14 +76,9 @@ def get_block_directory_list():
     import io
 
     # S3 bucket and file information
-    # bucket_name = 'test-state-bucket'
     bucket_name = 'test-state-bucket2'
     file_key = 'sdlc_block_directory_list.csv'
     
-    # ACCESS_KEY=os.getenv('AWS_ACCESS_KEY_ID')
-    # print("ACCESS_KEY",ACCESS_KEY)
-    # SECRET_ACCESS_KEY=os.getenv('AWS_SECRET_ACCESS_KEY')
-    # print("SECRET_ACCESS_KEY",SECRET_ACCESS_KEY)
     # Create an S3 client
     s3 = boto3.client('s3')
     # Get the object containing the file
@@ -107,7 +110,7 @@ def compare_file_changed_and_block_directory(file_changed,block_directory,emails
     Returns boolean
     """
     # try:
-    print("-----Comapring file changed and block directory file path-----")
+    print("-----Comparing file changed and block directory file path-----")
     file_present=False
     user_email=None
     user_github_id=None
@@ -118,20 +121,6 @@ def compare_file_changed_and_block_directory(file_changed,block_directory,emails
             file_present=True
             break
     return file_present,user_email,user_github_id
-
-
-
-
-
-
-    # file_present=False
-    # for file_path in file_changed:
-    #     if file_path in block_directory:
-    #         file_present=True
-    #         break
-    # return file_present
-    # except Exception as e:
-    #     print("Error in compare_file_changed_and_block_directory",str(e))
 
 
 def comment_plan():
