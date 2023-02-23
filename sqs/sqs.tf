@@ -1,2 +1,2 @@
 
-AmazonS3ReadOnlyAccess
+AmazonS3ReadOnlyAccesss
