@@ -4,8 +4,12 @@ import logging
 import datetime
 import requests
 
+
 # owner_and_repo = "razorpay/vishnu"
 owner_and_repo = "guptaanuj9907/python_test"
+
+
+
 
 def get_pr_number():
     """
@@ -123,11 +127,18 @@ def compare_file_changed_and_block_directory(file_changed,block_directory,emails
     return file_present,user_email,user_github_id
 
 def comment_on_pr(pr_no):
+    print("---Commenting on closed PR----")
     block_dir,email,_=get_block_directory_list()
+    blocked_emails={}
+    for directory, email in zip(block_dir, email):
+        if email in blocked_emails:
+            blocked_emails[email].append(directory)
+        else:
+            blocked_emails[email] = [directory]
     token = os.getenv('GIT_TOKEN')
     head = {'Authorization': 'token ' + token}
     url = "https://api.github.com/repos/"+owner_and_repo+"/issues/" + str(pr_no) + "/comments"
-    payload = {"body":f"This PR is being closed because the directory you are working on belongs to blocked directories...list of block directories{block_dir} which is caused by {email}"}
+    payload = {"body":f"This PR is being closed because the directory you are working on belongs to blocked directories...list of block directories which is caused by {blocked_emails}"}
     r = requests.post(url=url, headers=head, data = json.dumps(payload))
     print(r.status_code)
 
@@ -170,6 +181,7 @@ def main():
             print("PR is not being closed since it created by drift creator : {}".format(user_github_id))
             close_pr()
             comment_on_pr(get_pr_number())
+            html_content()
     else:
         print("File change file path is NOT present in BLOCK DIRECTORY")
         print("No Drift !!!!!!!!!!!!!...Trigger the cron job again when someone run atlantis plan")
@@ -179,4 +191,11 @@ def main():
     
 
 if __name__ == "__main__":
-    main()
+    import webbrowser
+    html_file_path = "https://github.com/guptaanuj9907/python_test/p1/.github/html_content_output.html"
+    print(html_file_path)
+    webbrowser.open(html_file_path)
+    # html_content()
+    # main()
+
+   
