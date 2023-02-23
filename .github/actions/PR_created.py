@@ -174,14 +174,14 @@ def main():
         if os.getenv('GITHUB_REPOSITORY_OWNER') != user_github_id:
         #have to check if the PR raiser is same person who created the drift then do nothing else close the pr
             print("Closing the PR")
-            # close_pr()
-            # comment_on_pr(get_pr_number())
+            close_pr()
+            comment_on_pr(get_pr_number())
 
         else:
             print("PR is not being closed since it created by drift creator : {}".format(user_github_id))
-            close_pr()
-            comment_on_pr(get_pr_number())
-            html_content()
+            # close_pr()
+            # comment_on_pr(get_pr_number())
+            
     else:
         print("File change file path is NOT present in BLOCK DIRECTORY")
         print("No Drift !!!!!!!!!!!!!...Trigger the cron job again when someone run atlantis plan")
