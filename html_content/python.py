@@ -28,6 +28,6 @@ def html_content():
     with open(html_file_path+"/output.html", 'w') as f:
         f.write(output_html)
 
-    # Open the file in a web browser
+    # Open the file in a web browse
     # webbrowser.open("file://"+html_file_path+"/output.html")
     webbrowser.open("file://"+html_file_path+"/output.html")
