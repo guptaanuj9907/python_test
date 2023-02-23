@@ -32,6 +32,7 @@ def auto_merge():
       print("Merge failed")
 
 if __name__ == "__main__":
-    auto_merge()
+    print("Atlantis apply is being triggered")
+    # auto_merge()
 
     ####

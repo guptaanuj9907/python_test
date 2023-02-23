@@ -8,42 +8,6 @@ import requests
 # owner_and_repo = "razorpay/vishnu"
 owner_and_repo = "guptaanuj9907/python_test"
 
-def html_content():
-    import os
-    import webbrowser
-    from flask import  render_template
-    from jinja2 import Template
-    import os
-
-    cwd = os.getcwd()
-    print("Current working directory:", cwd)
-
-    # html_file_path = '/Users/anuj.gupta/Desktop/sdlc/python_test/python_test/s3/index.html'
-    # html_file_path=cwd+"/s3/index.html"
-    html_file_path=cwd+"/.github/html_content"
-    pull_request_number=123
-    # webbrowser.open('file://' + os.path.realpath(html_file_path) + f'?pull_request_number={pull_request_number}')
-
-
-    with open(html_file_path+"/index.html") as f:
-        template = Template(f.read())
-
-    # Define the values to be passed to the template
-    pull_request_number = 56745
-    drift = "driftttttt"
-
-    # Render the template with the values
-    output_html = template.render(pull_request_number=pull_request_number, drift=drift)
-
-    # Print the rendered HTML
-    print(output_html)
-
-    # Save the HTML content to a file
-    with open(html_file_path+"/output.html", 'w') as f:
-        f.write(output_html)
-
-    # Open the file in a web browser
-    webbrowser.open("file://"+html_file_path+"/output.html")
 
 
 
@@ -163,6 +127,7 @@ def compare_file_changed_and_block_directory(file_changed,block_directory,emails
     return file_present,user_email,user_github_id
 
 def comment_on_pr(pr_no):
+    print("---Commenting on closed PR----")
     block_dir,email,_=get_block_directory_list()
     blocked_emails={}
     for directory, email in zip(block_dir, email):
@@ -226,4 +191,11 @@ def main():
     
 
 if __name__ == "__main__":
-    main()
+    import webbrowser
+    html_file_path = "https://github.com/guptaanuj9907/python_test/p1/.github/html_content_output.html"
+    print(html_file_path)
+    webbrowser.open(html_file_path)
+    # html_content()
+    # main()
+
+   
