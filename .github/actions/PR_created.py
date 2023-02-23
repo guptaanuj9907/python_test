@@ -192,10 +192,6 @@ def main():
 
 if __name__ == "__main__":
     import webbrowser
-    html_file_path = "https://github.com/guptaanuj9907/python_test/p1/.github/html_content_output.html"
-    print(html_file_path)
-    webbrowser.open(html_file_path)
-    # html_content()
-    # main()
+    main()
 
    
