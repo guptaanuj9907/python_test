@@ -135,10 +135,20 @@ def comment_on_pr(pr_no):
             blocked_emails[email].append(directory)
         else:
             blocked_emails[email] = [directory]
+
+    
+    output = "This PR is being closed because the directory you are working on belongs to blocked directories...list of block directories which is caused by\n"
+
+    for email, directories in blocked_emails.items():
+        output += f"{email}: {directories}\n"   
+
+
+    
     token = os.getenv('GIT_TOKEN')
     head = {'Authorization': 'token ' + token}
     url = "https://api.github.com/repos/"+owner_and_repo+"/issues/" + str(pr_no) + "/comments"
-    payload = {"body":f"This PR is being closed because the directory you are working on belongs to blocked directories...list of block directories which is caused by {blocked_emails}"}
+    # payload = {"body":f"This PR is being closed because the directory you are working on belongs to blocked directories...list of block directories which is caused by {blocked_emails}"}
+    payload = {"body": output}
     r = requests.post(url=url, headers=head, data = json.dumps(payload))
     print(r.status_code)
 
