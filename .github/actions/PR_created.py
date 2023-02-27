@@ -95,6 +95,7 @@ def get_block_directory_list():
     # print("file_contents")
 
     data = json.loads(file_contents)
+    print("data :",data)
 
 # now you can use the data as a list of dictionaries
     for item in data:
