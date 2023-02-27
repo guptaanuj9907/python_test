@@ -81,7 +81,7 @@ def get_block_directory_list():
 
     # S3 bucket and file information
     bucket_name = 'test-state-bucket2'
-    file_key = 'sdlc_block_directory_list.csv'
+    file_key = 'infra-sdlc-master.json'
     
     # Create an S3 client
     s3 = boto3.client('s3')
@@ -94,16 +94,33 @@ def get_block_directory_list():
     file_contents = s3_object['Body'].read().decode('utf-8')
     # print("file_contents")
 
-    reader = csv.DictReader(io.StringIO(file_contents))
-    filtered_data = [row for row in reader if row['status'] == 'blocked']
-    # print("filtered_data",filtered_data)
-    # Extract the 'block_directory','email' and "github_id "fields
-    blocked_directories = [row['block_directory'] for row in filtered_data]
-    print("blocked_directories",blocked_directories)
-    emails = [row['email'] for row in filtered_data]
-    print("emails",emails)
-    github_id = [row['github_id'] for row in filtered_data]
-    print("github_id",github_id)
+    data = json.loads(file_contents)
+    print("data :",data)
+    blocked_directories = []
+    emails = []
+    github_id = []
+# now you can use the data as a list of dictionaries
+    for item in data:
+        if item['status'] == "blocked":
+            blocked_directories.append(item['dir'][8:])
+            emails.append(item['email'][0])
+            github_id.append(item['github_id'])
+    print("blocked_directories :",blocked_directories)
+    print("emails :",emails)
+    print("github_id :",github_id)
+        
+
+
+    # reader = csv.DictReader(io.StringIO(file_contents))
+    # filtered_data = [row for row in reader if row['status'] == 'blocked']
+    # # print("filtered_data",filtered_data)
+    # # Extract the 'block_directory','email' and "github_id "fields
+    # blocked_directories = [row['block_directory'] for row in filtered_data]
+    # print("blocked_directories",blocked_directories)
+    # emails = [row['email'] for row in filtered_data]
+    # print("emails",emails)
+    # github_id = [row['github_id'] for row in filtered_data]
+    # print("github_id",github_id)
 
     return blocked_directories,emails,github_id
 
@@ -135,10 +152,19 @@ def comment_on_pr(pr_no):
             blocked_emails[email].append(directory)
         else:
             blocked_emails[email] = [directory]
+
+    
+    output = "This PR is being closed because the directory you are working on belongs to blocked directories...list of block directories which is caused by\n"
+    for email, directories in blocked_emails.items():
+        output += f"{email}: {directories}\n"   
+
+
+    
     token = os.getenv('GIT_TOKEN')
     head = {'Authorization': 'token ' + token}
     url = "https://api.github.com/repos/"+owner_and_repo+"/issues/" + str(pr_no) + "/comments"
-    payload = {"body":f"This PR is being closed because the directory you are working on belongs to blocked directories...list of block directories which is caused by {blocked_emails}"}
+    # payload = {"body":f"This PR is being closed because the directory you are working on belongs to blocked directories...list of block directories which is caused by {blocked_emails}"}
+    payload = {"body": output}
     r = requests.post(url=url, headers=head, data = json.dumps(payload))
     print(r.status_code)
 
