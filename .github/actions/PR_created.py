@@ -96,10 +96,16 @@ def get_block_directory_list():
 
     data = json.loads(file_contents)
     print("data :",data)
-
+    blocked_directories = []
+    emails = []
+    github_id = []
 # now you can use the data as a list of dictionaries
     for item in data:
-        print(item['block_directory'], item['status'])
+        if item['status'] == "blocked":
+            blocked_directories.append(item['dir'][8:])
+            emails.append(item['email'][0])
+            github_id.append(item['github_id'])
+        
 
 
     # reader = csv.DictReader(io.StringIO(file_contents))
@@ -113,7 +119,7 @@ def get_block_directory_list():
     # github_id = [row['github_id'] for row in filtered_data]
     # print("github_id",github_id)
 
-    # return blocked_directories,emails,github_id
+    return blocked_directories,emails,github_id
 
 
 def compare_file_changed_and_block_directory(file_changed,block_directory,emails,github_id):
