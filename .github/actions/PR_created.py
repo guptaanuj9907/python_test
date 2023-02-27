@@ -105,6 +105,9 @@ def get_block_directory_list():
             blocked_directories.append(item['dir'][8:])
             emails.append(item['email'][0])
             github_id.append(item['github_id'])
+    print("blocked_directories :",blocked_directories)
+    print("emails :",emails)
+    print("github_id :",github_id)
         
 
 
