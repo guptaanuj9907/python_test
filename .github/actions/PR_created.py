@@ -99,7 +99,7 @@ def get_block_directory_list():
     blocked_directories = []
     emails = []
     github_id = []
-# now you can use the data as a list of dictionaries
+# now you can use the data as a list of dictionarie
     for item in data:
         if item['status'] == "blocked":
             blocked_directories.append(item['dir'][8:])
