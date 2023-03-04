@@ -146,12 +146,33 @@ def compare_file_changed_and_block_directory(file_changed,block_directory,emails
 def comment_on_pr(pr_no):
     print("---Commenting on closed PR----")
     block_dir,email,_=get_block_directory_list()
-    blocked_emails={}
-    for directory, email in zip(block_dir, email):
-        if email in blocked_emails:
-            blocked_emails[email].append(directory)
+    file_changed=get_list_of_file_changed()
+
+    details={}
+    for block_directory,mail in zip(block_dir,email):
+        if block_directory not in details:
+            details[block_directory]=[mail]
         else:
-            blocked_emails[email] = [directory]
+            details[block_directory.append(mail)]
+
+    blocked_emails={}
+    for file in file_changed:
+        if file in details and file not in blocked_emails:
+            blocked_emails[file]=[details[file][0]]
+        elif file in details and file in blocked_emails:
+            blocked_emails[file].append(details[file][0])
+    
+    print("details :",details)
+    print("blocked_emails :",blocked_emails)
+
+
+
+    # blocked_emails={}
+    # for directory, email in zip(block_dir, email):
+    #     if email in blocked_emails:
+    #         blocked_emails[email].append(directory)
+    #     else:
+    #         blocked_emails[email] = [directory]
 
     
     output = "This PR is being closed because the directory you are working on belongs to blocked directories...list of block directories which is caused by\n"
@@ -217,7 +238,6 @@ def main():
     
 
 if __name__ == "__main__":
-    import webbrowser
     main()
 
    
